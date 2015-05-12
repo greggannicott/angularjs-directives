@@ -4,7 +4,7 @@
     </ul>
 </div>
 
-<script type="text/ng-template"  id="tree_item_renderer.html">
+<script type="text/ng-template" id="tree_item_renderer.html">
     <i class="fa-li fa" ng-class="getNodeIcon(node)" ng-click="node.isExpanded = !node.isExpanded"></i> <span class="display-text" ng-click="toggleNodeSelection(node)" ng-class="{ 'selected': node.isSelected }">{{node.displayText}}</span>
     <ul class="fa-ul" ng-show="typeof(node.isExpanded) !== 'undefined' && node.isExpanded">
         <li ng-repeat="node in node.childNodes" ng-include="'tree_item_renderer.html'"></li>
