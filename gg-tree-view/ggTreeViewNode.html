@@ -1,0 +1,6 @@
+<i class="fa-li fa" ng-class="getNodeIcon(node)" ng-click="node.isExpanded = !node.isExpanded"></i> <span class="display-text" ng-click="toggleNodeSelection(node)" ng-class="{ 'selected': node.isSelected }">{{node.displayText}}</span>
+<ul class="fa-ul" ng-show="typeof(node.isExpanded) !== 'undefined' && node.isExpanded">
+    <li ng-repeat="childNode in node.childNodes">
+        <gg-tree-view-node node="childNode"></gg-tree-view-node>
+    </li>
+</ul>

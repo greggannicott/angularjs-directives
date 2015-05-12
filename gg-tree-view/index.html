@@ -1,0 +1,42 @@
+<html>
+
+<head>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <!-- JS Libraries -->
+    <script data-require="angular.js@*" data-semver="1.4.0-beta.4" src="https://code.angularjs.org/1.4.0-beta.4/angular.js"></script>
+    <!-- Custom Scripts -->
+    <link rel="stylesheet" href="ggTreeView.css">
+    <script src="../gg.js"></script>
+    <script src="../ggDirectives.js"></script>
+    <script src="ggTreeView.js"></script>
+    <script src="script.js"></script>
+</head>
+
+<body style="padding: 30px" ng-app="gg">
+
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                TreeView
+            </div>
+            <div class="panel-body">
+                <h2>About</h2>
+                <p>To write...</p>
+                <h2>Demos</h2>
+                <form>
+                    <div ng-controller="demoController">
+                        <gg-tree-view tree-data="treeData"></gg-tree-view>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

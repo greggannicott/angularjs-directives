@@ -1,0 +1,37 @@
+.tree-view li {
+    list-style-type: none;
+    padding-left: 5px;
+    cursor: pointer;
+    color: gray;
+}
+
+.tree-view i {
+    padding: 1px;
+}
+
+.tree-view i:hover {
+    color: black;
+}
+
+.tree-view .display-text:hover {
+    color: black;
+}
+
+.tree-view .display-text {
+    display: inline-block;
+    padding: 1px 5px;
+}
+
+.tree-view .display-text.selected {
+    background-color: gray;
+    color: white;
+    border-radius: 3px;
+}
+
+.tree-view .display-text {
+    margin-left: -9px;
+}
+
+.tree-view ul ul {
+    margin-left: 10px;
+}
