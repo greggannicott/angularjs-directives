@@ -1,0 +1,40 @@
+<html>
+
+<head>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <!-- JS Libraries -->
+    <script data-require="angular.js@*" data-semver="1.4.0-beta.4" src="https://code.angularjs.org/1.4.0-beta.4/angular.js"></script>
+    <!-- Custom Scripts -->
+    <script src="../gg.js"></script>
+    <script src="../ggDirectives.js"></script>
+    <script src="ggTrimOnBlur.js"></script>
+</head>
+
+<body style="padding: 30px" ng-app="gg">
+
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                ggTrimOnBlur
+            </div>
+            <div class="panel-body">
+                <h2>About</h2>
+                <p>ggTrimOnBlur trims the content of an input box when the input box has lost focus.</p>
+                <h2>Demos</h2>
+                <form>
+                    <p>Enter some text into the field. Include some spaces either at the start or end of the text field, and when the field loses focus, the space should be trimmed.</p>
+                    <div class="form-group">
+                        <label for="test" class="control-label">Some Form Field:</label>
+                        <input class="form-control" name="test" gg-trim-on-blur>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
