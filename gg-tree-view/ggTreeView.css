@@ -20,12 +20,13 @@
 .tree-view .display-text {
     display: inline-block;
     padding: 1px 5px;
+    border: 1px solid white;
 }
 
 .tree-view .display-text.selected {
-    background-color: gray;
-    color: white;
-    border-radius: 3px;
+    background-color: #E3FAFF;
+    border: 1px solid #CCE1E6;
+    border-radius: 5px;
 }
 
 .tree-view .display-text {

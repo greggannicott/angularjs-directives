@@ -1,19 +1,12 @@
 <div class="tree-view">
     <ul class="fa-ul">
-        <li ng-repeat="node in treeData"><gg-tree-view-node node="node"></gg-tree-view-node></li>
+        <li ng-repeat="node in treeData" ng-include="'tree_item_renderer.html'"></li>
     </ul>
 </div>
 
-
-<!--<div class="treeView">-->
-<!--    <ul class="fa-ul">-->
-<!--        <li ng-repeat="node in treeData" ng-include="'tree_item_renderer.html'"></li>-->
-<!--    </ul>-->
-<!--</div>-->
-
-<!--<script type="text/ng-template"  id="tree_item_renderer.html">-->
-<!--    <i class="fa-li fa fa-caret-down"></i> {{node.displayText}}-->
-<!--    <ul class="fa-ul">-->
-<!--        <li ng-repeat="node in node.childNodes" ng-include="'tree_item_renderer.html'"></li>-->
-<!--    </ul>-->
-<!--</script>-->
+<script type="text/ng-template"  id="tree_item_renderer.html">
+    <i class="fa-li fa" ng-class="getNodeIcon(node)" ng-click="node.isExpanded = !node.isExpanded"></i> <span class="display-text" ng-click="toggleNodeSelection(node)" ng-class="{ 'selected': node.isSelected }">{{node.displayText}}</span>
+    <ul class="fa-ul" ng-show="typeof(node.isExpanded) !== 'undefined' && node.isExpanded">
+        <li ng-repeat="node in node.childNodes" ng-include="'tree_item_renderer.html'"></li>
+    </ul>
+</script>

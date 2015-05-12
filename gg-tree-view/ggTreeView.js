@@ -6,30 +6,6 @@ angular.module('gg.directives')
                 treeData: "="
             },
             templateUrl: "ggTreeView.html",
-            link: function(scope, element, attributes) {
-
-            }
-        }
-    })
-    .directive('ggTreeViewNode', function($compile) {
-        return {
-            restrict: "E",
-            scope: {
-                node: "="
-            },
-            templateUrl: "ggTreeViewNode.html",
-            compile: function(tElement, tAttr) {
-                var contents = tElement.contents().remove();
-                var compiledContents;
-                return function(scope, iElement, iAttr) {
-                    if (!compiledContents) {
-                        compiledContents = $compile(contents);
-                    }
-                    compiledContents(scope, function(clone, scope) {
-                        iElement.append(clone);
-                    });
-                };
-            },
             controller: function($scope) {
                 $scope.getNodeIcon = function(node) {
                     if (typeof node.isExpanded !== "undefined" && node.isExpanded === true) {
