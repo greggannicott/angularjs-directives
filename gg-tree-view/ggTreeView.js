@@ -18,21 +18,33 @@ angular.module('gg.directives')
                         return "fa-caret-right";
                     }
                 }
-                
+
                 hasChildNodes = function(node) {
                     if (typeof node.childNodes === "undefined") {
                         return false;
-                    } else if (node.childNodes.length > 0) {
+                    }
+                    else if (node.childNodes.length > 0) {
                         return true;
-                    } else {
+                    }
+                    else {
                         return false;
                     }
                 }
-                
+
                 $scope.toggleNodeSelection = function(node) {
-                    console.log("selected...");
+                    $scope.deselectAllNodes($scope.treeData);
                     node.isSelected = !node.isSelected;
                 }
+                
+                $scope.deselectAllNodes = function(nodes) {
+                    $.each(nodes, function() {
+                        if (typeof this.childNodes !== 'undefined' && this.childNodes.length > 0) {
+                            $scope.deselectAllNodes(this.childNodes);
+                        }
+                        this.isSelected = false;
+                    });
+                }
+
             }
         }
     });
