@@ -2,8 +2,8 @@ angular.module('gg').controller('demoController', function($scope) {
     $scope.treeData = [
         {"id": "1", "displayText": "Entry 1", "isExpanded":true, "childNodes":
             [
-            {"id": "1.1", "displayText": "Entry 1.1"},
-            {"id": "1.1", "displayText": "Entry 1.1", "isExpanded":true, "childNodes": [
+            {"id": "1.1", "displayText": "Entry 1.1" },
+            {"id": "1.1", "displayText": "Entry 1.1", "isExpanded": true, "isSelected": true, "childNodes": [
                 {"id": "1.1.1", "displayText": "Entry 1.1.1"},
                 {"id": "1.1.2", "displayText": "Entry 1.1.2"}
                 ]

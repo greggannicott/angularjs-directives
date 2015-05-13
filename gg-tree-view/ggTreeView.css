@@ -1,3 +1,7 @@
+.tree-view {
+    overflow: auto;
+}
+
 .tree-view li {
     list-style-type: none;
     padding-left: 5px;
