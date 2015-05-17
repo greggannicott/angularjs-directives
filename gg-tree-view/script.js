@@ -29,11 +29,11 @@ angular.module('gg').controller('demoController', function($scope) {
     //     ];
         
     $scope.treeData = [
-        {"id": "1", "displayText": "Entry 1", "isSelected": true, "isExpanded": true, pid: null},
+        {"id": "1", "displayText": "Entry 1", "checkedState": "unchecked", "isExpanded": true, pid: null},
         {"id": "2", "displayText": "Entry 2", "isSelected": false, pid: null},
         {"id": "3", "displayText": "Entry 3", pid: null},
         {"id": "4", "displayText": "Entry 4", pid: "1"},
-        {"id": "5", "displayText": "Entry 5", "isChecked": true, pid: "4"},
-        {"id": "6", "displayText": "Entry 6", "isChecked": true, pid: "4"}
+        {"id": "5", "displayText": "Entry 5", "checkedState": "checked", pid: "4"},
+        {"id": "6", "displayText": "Entry 6", "checkedState": "checked", pid: "4"}
     ];
 });

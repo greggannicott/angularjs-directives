@@ -1,5 +1,7 @@
 angular.module('gg.directives')
     .service("treeViewService", function() {
+        
+        var self = this;
 
         var icons = {
             expandedNode: "fa-caret-down",
@@ -7,6 +9,12 @@ angular.module('gg.directives')
             checkedCheckbox: "fa-check-circle-o",
             uncheckedCheckbox: "fa-circle-o"
         };
+        
+        var checkedStates = {
+            checked: "checked",
+            mixed: "mixed",
+            unchecked: "unchecked"
+        }
 
         var allNodes;
 
@@ -72,11 +80,39 @@ angular.module('gg.directives')
         }
 
         this.toggleCheckbox = function(node) {
-            node.isChecked = !node.isChecked;
+            var newCheckedState = toggleCheckedState(node);
+            // Toggle the current node
+            node.checkedState = newCheckedState;
+            // Check if it has any children. If it does, set them accordingly.
+            if (hasChildNodes(node)) {
+                this.applyStateToChildNodes(node,newCheckedState);
+            }
+            // Check if it updates the state of it's parent. If so, it should adjust it's state accordingly.
+            if (typeof node.pid !== "undefined" && node.pid !== null) {
+                //updateStateOfParent(node,newCheckedState);
+            }
+        }
+        
+        var toggleCheckedState = function(node) {
+            if (node.checkedState === checkedStates.checked) {
+                return node.checkedState = checkedStates.unchecked;
+            } else if (typeof node.checkedState === "undefined" || node.checkedState === "" || node.checkedState === checkedStates.unchecked) {
+                return node.checkedState = checkedStates.checked;
+            }
+        }
+        
+        this.applyStateToChildNodes = function(parentNode,newCheckedState) {
+            $.each(this.getChildNodes(parentNode), function() {
+                if (hasChildNodes(this)) {
+                    self.applyStateToChildNodes(this,newCheckedState);
+                }
+                this.checkedState = newCheckedState;
+            })
         }
 
+
         this.getCheckboxIcon = function(node) {
-            if (node.isChecked === true) {
+            if (node.checkedState === checkedStates.checked) {
                 return icons.checkedCheckbox;
             }
             else {
