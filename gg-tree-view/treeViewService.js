@@ -7,6 +7,7 @@ angular.module('gg.directives')
             expandedNode: "fa-caret-down",
             collapsedNode: "fa-caret-right",
             checkedCheckbox: "fa-check-circle-o",
+            mixedCheckbox: "fa-dot-circle-o",
             uncheckedCheckbox: "fa-circle-o"
         };
         
@@ -81,15 +82,12 @@ angular.module('gg.directives')
 
         this.toggleCheckbox = function(node) {
             var newCheckedState = toggleCheckedState(node);
-            // Toggle the current node
             node.checkedState = newCheckedState;
-            // Check if it has any children. If it does, set them accordingly.
             if (hasChildNodes(node)) {
                 this.applyStateToChildNodes(node,newCheckedState);
             }
-            // Check if it updates the state of it's parent. If so, it should adjust it's state accordingly.
             if (typeof node.pid !== "undefined" && node.pid !== null) {
-                //updateStateOfParent(node,newCheckedState);
+                updateStateOfParent(node,newCheckedState);
             }
         }
         
@@ -109,13 +107,71 @@ angular.module('gg.directives')
                 this.checkedState = newCheckedState;
             })
         }
-
+        
+        var updateStateOfParent = function(childNode,newCheckedState) {
+            var parentNode = getParentNode(childNode);
+            if (typeof parentNode !== "undefined") {
+                var stateOfChildNodes = getStateOfDescendantNodes(parentNode);
+                var originalParentNodeState = parentNode.checkedState;
+                parentNode.checkedState = stateOfChildNodes;
+                if (originalParentNodeState !== parentNode.checkedState) {
+                    updateStateOfParent(parentNode,parentNode.checkedState);
+                }
+            }
+        }
+        
+        var getParentNode = function(childNode) {
+            var parentNode;
+            $.each(allNodes,function() {
+                if (this.id === childNode.pid) {
+                    parentNode = this;
+                }
+            });
+            return parentNode;
+        }
+        
+        var getStateOfDescendantNodes = function(parentNode) {
+            var numberOfDescendantNodes = getNumberOfDescendantNodes(parentNode);
+            var numberOfCheckedDescendantNodes = getNumberOfCheckedDescendantNodes(parentNode);
+            if (numberOfCheckedDescendantNodes === 0) {
+                return checkedStates.unchecked;
+            } else if (numberOfCheckedDescendantNodes > 0 && numberOfCheckedDescendantNodes < numberOfDescendantNodes) {
+                return checkedStates.mixed;
+            } else if (numberOfCheckedDescendantNodes === numberOfDescendantNodes) {
+                return checkedStates.checked
+            }
+        }
+        
+        var getNumberOfDescendantNodes = function(parentNode) {
+            var count = 0;
+            $.each(allNodes,function() {
+                if (this.pid === parentNode.id) {
+                    count += getNumberOfDescendantNodes(this);
+                    count++;
+                }
+            })
+            return count;
+        }
+        
+        var getNumberOfCheckedDescendantNodes = function(parentNode) {
+            var count = 0;
+            $.each(allNodes,function() {
+                if (this.pid === parentNode.id) {
+                    count += getNumberOfCheckedDescendantNodes(this);
+                }
+                if (this.pid === parentNode.id && this.checkedState === checkedStates.checked) {
+                    count++;
+                }
+            })
+            return count;
+        }
 
         this.getCheckboxIcon = function(node) {
             if (node.checkedState === checkedStates.checked) {
                 return icons.checkedCheckbox;
-            }
-            else {
+            } else if (node.checkedState === checkedStates.mixed) {
+                return icons.mixedCheckbox;
+            } else {
                 return icons.uncheckedCheckbox;
             }
         }

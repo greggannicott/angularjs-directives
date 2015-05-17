@@ -34,6 +34,12 @@ angular.module('gg').controller('demoController', function($scope) {
         {"id": "3", "displayText": "Entry 3", pid: null},
         {"id": "4", "displayText": "Entry 4", pid: "1"},
         {"id": "5", "displayText": "Entry 5", "checkedState": "checked", pid: "4"},
-        {"id": "6", "displayText": "Entry 6", "checkedState": "checked", pid: "4"}
+        {"id": "6", "displayText": "Entry 6", "checkedState": "checked", pid: "4"},
+        {"id": "7", "displayText": "Entry 7", "checkedState": "checked", pid: "6"},
+        {"id": "8", "displayText": "Entry 8", "checkedState": "checked", pid: "6"},
+        {"id": "9", "displayText": "Entry 9", "checkedState": "checked", pid: "6"},
+        {"id": "10", "displayText": "Entry 10", "checkedState": "checked", pid: "6"},
+        {"id": "11", "displayText": "Entry 11", "checkedState": "checked", pid: "6"},
+        {"id": "12", "displayText": "Entry 12", "checkedState": "checked", pid: "11"}
     ];
 });
