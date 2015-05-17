@@ -13,12 +13,10 @@ angular.module('gg.directives')
 
                 // Determine if we're going to display checkboxes or not
                 if (scope.displayCheckboxes !== "undefined" && scope.displayCheckboxes === true) {
-                    console.log("yes");
                     scope.areCheckboxesDisplayed = true;
                 }
                 else {
                     scope.areCheckboxesDisplayed = false;
-                    console.log("no");
                 }
 
             },
@@ -27,6 +25,14 @@ angular.module('gg.directives')
                 //var getStateOfChildNodes;
 
                 $scope.areCheckboxesDisplayed = false;
+                
+                $scope.getRootNodes = function() {
+                    return treeViewService.getRootNodes();
+                }
+                
+                $scope.getChildNodes = function(node) {
+                    return treeViewService.getChildNodes(node);
+                }
 
                 $scope.getNodeIcon = function(node) {
                     return treeViewService.getNodeIcon(node);

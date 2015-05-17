@@ -1,17 +1,37 @@
 angular.module('gg.directives')
     .service("treeViewService", function() {
-        
-        var icons = { 
-            expandedNode: "fa-caret-down"
-            , collapsedNode: "fa-caret-right" 
-            , checkedCheckbox: "fa-check-circle-o"
-            , uncheckedCheckbox: "fa-circle-o"
-        };
-        
-        var tree;
 
-        this.init = function(inTree) {
-            tree = inTree;
+        var icons = {
+            expandedNode: "fa-caret-down",
+            collapsedNode: "fa-caret-right",
+            checkedCheckbox: "fa-check-circle-o",
+            uncheckedCheckbox: "fa-circle-o"
+        };
+
+        var allNodes;
+
+        this.init = function(treeNodes) {
+            allNodes = treeNodes;
+        }
+
+        this.getRootNodes = function() {
+            var rootNodes = [];
+            $.each(allNodes, function() {
+                if (this.pid === null) {
+                    rootNodes.push(this);
+                }
+            });
+            return rootNodes;
+        }
+
+        this.getChildNodes = function(parentNode) {
+            var childNodes = [];
+            $.each(allNodes, function() {
+                if (typeof this.pid !== "undefined" && this.pid === parentNode.id) {
+                    childNodes.push(this);
+                }
+            })
+            return childNodes;
         }
 
         this.getNodeIcon = function(node) {
@@ -31,21 +51,24 @@ angular.module('gg.directives')
         }
 
         this.toggleNodeSelection = function(node) {
-            deselectAllNodes(tree);
+            deselectAllNodes(allNodes);
             node.isSelected = !node.isSelected;
         }
 
         var deselectAllNodes = function(nodes) {
-            $.each(nodes, function() {
-                if (hasChildNodes(this)) {
-                    deselectAllNodes(this.childNodes);
-                }
+            $.each(allNodes,function() {
                 this.isSelected = false;
             });
         }
 
-        var hasChildNodes = function(node) {
-            return (typeof node.childNodes !== "undefined" && node.childNodes.length > 0)
+        var hasChildNodes = function(parentNode) {
+            var children = 0;
+            $.each(allNodes, function() {
+                if (typeof this.pid !== "undefined" && this.pid === parentNode.id) {
+                    children++;
+                }
+            })
+            return (children > 0);
         }
 
         this.toggleCheckbox = function(node) {
