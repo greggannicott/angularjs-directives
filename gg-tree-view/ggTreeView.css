@@ -13,7 +13,11 @@
     padding: 1px;
 }
 
-.tree-view i:hover {
+.tree-view .expander:hover {
+    color: black;
+}
+
+.tree-view .tree-view-checkbox-and-node:hover {
     color: black;
 }
 

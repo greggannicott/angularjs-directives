@@ -38,8 +38,12 @@ angular.module('gg.directives')
                     return treeViewService.getNodeIcon(node);
                 }
 
-                $scope.toggleNodeSelection = function(node) {
-                    treeViewService.toggleNodeSelection(node);
+                $scope.selectNode = function(node) {
+                    if ($scope.areCheckboxesDisplayed === false) {
+                        treeViewService.toggleNodeSelection(node);
+                    } else {
+                        $scope.toggleCheckbox(node);
+                    }
                 }
 
                 // $scope.deselectAllNodes = function(nodes) {
