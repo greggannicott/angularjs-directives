@@ -1,5 +1,5 @@
 angular.module('gg.directives')
-    .directive('ggTreeView', function() {
+    .directive('ggTreeView', function(treeViewService) {
         return {
             restrict: "E",
             scope: {
@@ -8,6 +8,8 @@ angular.module('gg.directives')
             },
             templateUrl: "ggTreeView.html",
             link: function(scope, element, attributes) {
+                
+                treeViewService.init(scope.treeData);
 
                 // Determine if we're going to display checkboxes or not
                 if (scope.displayCheckboxes !== "undefined" && scope.displayCheckboxes === true) {
@@ -27,42 +29,21 @@ angular.module('gg.directives')
                 $scope.areCheckboxesDisplayed = false;
 
                 $scope.getNodeIcon = function(node) {
-                    if (typeof node.isExpanded !== "undefined" && node.isExpanded === true) {
-                        return "fa-caret-down";
-                    }
-                    else if (!hasChildNodes(node)) {
-                        return "";
-                    }
-                    else {
-                        return "fa-caret-right";
-                    }
-                }
-
-                hasChildNodes = function(node) {
-                    if (typeof node.childNodes === "undefined") {
-                        return false;
-                    }
-                    else if (node.childNodes.length > 0) {
-                        return true;
-                    }
-                    else {
-                        return false;
-                    }
+                    return treeViewService.getNodeIcon(node);
                 }
 
                 $scope.toggleNodeSelection = function(node) {
-                    $scope.deselectAllNodes($scope.treeData);
-                    node.isSelected = !node.isSelected;
+                    treeViewService.toggleNodeSelection(node);
                 }
 
-                $scope.deselectAllNodes = function(nodes) {
-                    $.each(nodes, function() {
-                        if (hasChildNodes(this)) {
-                            $scope.deselectAllNodes(this.childNodes);
-                        }
-                        this.isSelected = false;
-                    });
-                }
+                // $scope.deselectAllNodes = function(nodes) {
+                //     $.each(nodes, function() {
+                //         if (hasChildNodes(this)) {
+                //             $scope.deselectAllNodes(this.childNodes);
+                //         }
+                //         this.isSelected = false;
+                //     });
+                // }
                 
                 
                 $scope.toggleCheckbox = function(node) {
@@ -83,7 +64,7 @@ angular.module('gg.directives')
                     //     }
                     // }
                     // else {
-                        node.isChecked = !node.isChecked;
+                        treeViewService.toggleCheckbox(node);
                     // }
                 }
 
@@ -102,12 +83,7 @@ angular.module('gg.directives')
                     //     }
                     // }
                     // else {
-                        if (node.isChecked === true) {
-                            return "fa-check-circle-o";
-                        }
-                        else {
-                            return "fa-circle-o";
-                        }
+                    return treeViewService.getCheckboxIcon(node);
                     // }
                 }
 
