@@ -1,6 +1,13 @@
 angular.module('gg.directives')
     .service("treeViewService", function() {
-
+        
+        var icons = { 
+            expandedNode: "fa-caret-down"
+            , collapsedNode: "fa-caret-right" 
+            , checkedCheckbox: "fa-check-circle-o"
+            , uncheckedCheckbox: "fa-circle-o"
+        };
+        
         var tree;
 
         this.init = function(inTree) {
@@ -9,13 +16,13 @@ angular.module('gg.directives')
 
         this.getNodeIcon = function(node) {
             if (isNodeExpanded(node)) {
-                return "fa-caret-down";
+                return icons.expandedNode;
             }
             else if (!hasChildNodes(node)) {
                 return "";
             }
             else {
-                return "fa-caret-right";
+                return icons.collapsedNode;
             }
         }
 
@@ -47,10 +54,10 @@ angular.module('gg.directives')
 
         this.getCheckboxIcon = function(node) {
             if (node.isChecked === true) {
-                return "fa-check-circle-o";
+                return icons.checkedCheckbox;
             }
             else {
-                return "fa-circle-o";
+                return icons.uncheckedCheckbox;
             }
         }
 
