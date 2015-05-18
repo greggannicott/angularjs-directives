@@ -37,14 +37,11 @@ angular.module('gg.directives')
 
         var applyMixedStatuses = function(nodes) {
             $.each(nodes, function() {
-                // If there are grandchildren, go down a level
                 if (hasGrandChildrenNodes(this) === true) {
                     var childNodes = self.getChildNodes(this);
                     applyMixedStatuses(childNodes);
-                    console.log("has grand children",this.displayText);
                 }
                 else if (hasChildNodes(this) === true) {
-                    console.log("has children, but isn't grand parent",this.displayText);
                     this.checkedState = getStateOfDescendantNodes(this);
                     updateStateOfParent(this, this.checkedState);
                 }
@@ -52,21 +49,11 @@ angular.module('gg.directives')
         }
 
         var hasGrandChildrenNodes = function(node) {
-            
-            // Each child node
-                // E
-            
             var grandChildren = 0;
             var childNodes = self.getChildNodes(node);
             $.each(childNodes, function() {
                 if (hasChildNodes(this)) {
-                    //var childNodes = self.getChildNodes(this);
                     grandChildren++;
-                    // $.each(childNodes, function() {
-                    //     if (hasChildNodes(this)) {
-                    //         grandChildren++;
-                    //     }
-                    // });
                 }
             });
             return (grandChildren > 0);
@@ -93,13 +80,11 @@ angular.module('gg.directives')
         }
 
         this.getNodeIcon = function(node) {
-            if (isNodeExpanded(node)) {
-                return icons.expandedNode;
-            }
-            else if (!hasChildNodes(node)) {
+            if (!hasChildNodes(node)) {
                 return "";
-            }
-            else {
+            } else if (isNodeExpanded(node)) {
+                return icons.expandedNode;
+            } else {
                 return icons.collapsedNode;
             }
         }
